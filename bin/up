@@ -1,0 +1,9 @@
+#!/bin/bash
+
+source ./bin/activate
+
+compose_file_name=$(get_compose_file_name)
+
+if [ -n "$compose_file_name" ]; then
+  docker compose -f $compose_file_name up $1 -d
+fi
