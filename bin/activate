@@ -37,7 +37,9 @@ deactivate () {
 }
 
 get_compose_file_name() {
-  if [[ -n $DOCKER_VENV_MODE && -e "docker-compose.$DOCKER_VENV_MODE.yml" ]]; then
+  if [[ -z $DOCKER_VENV_MODE && -e "docker-compose.yml" ]] ; then
+    echo "docker-compose.yml"
+  elif [[ -n $DOCKER_VENV_MODE && -e "docker-compose.$DOCKER_VENV_MODE.yml" ]]; then
     echo "docker-compose.$DOCKER_VENV_MODE.yml"
   elif [[ -e "docker-compose.yml" ]]; then
     echo "docker-compose.yml"
@@ -102,18 +104,4 @@ if [[ -n "${DOCKER_VENV:-}" ]] ; then
             fi
         done
     fi
-else
-    printf "Please pass one of environments:\n"
-    for env in "${environments[@]}"
-    do
-        if [[ -z $env ]] ; then
-            echo "- <empty>";
-        else
-            echo "- $env"
-        fi
-    done
-
-    # clear variables
-    unset SCRIPT_DIR DOCKER_VIRTUAL_ENV environments
-    unset -f deactivate get_compose_environments
 fi
