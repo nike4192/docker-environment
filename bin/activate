@@ -37,10 +37,10 @@ deactivate () {
 }
 
 get_compose_file_name() {
-  if [[ -z $DOCKER_VENV_MODE && -e "docker-compose.yml" ]] ; then
+  if [[ -z $DOCKER_VENV && -e "docker-compose.yml" ]] ; then
     echo "docker-compose.yml"
-  elif [[ -n $DOCKER_VENV_MODE && -e "docker-compose.$DOCKER_VENV_MODE.yml" ]]; then
-    echo "docker-compose.$DOCKER_VENV_MODE.yml"
+  elif [[ -n $DOCKER_VENV && -e "docker-compose.$DOCKER_VENV.yml" ]]; then
+    echo "docker-compose.$DOCKER_VENV.yml"
   elif [[ -e "docker-compose.yml" ]]; then
     echo "docker-compose.yml"
   fi
